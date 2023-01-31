@@ -1,0 +1,11 @@
+.profile__edit-profile {
+    display: grid;
+    align-self: center;
+    display: grid;
+    grid-template-areas: "profile__title profile__edit-button"
+    "profile__subtitle profile__subtitle";
+    grid-column-gap: 18px;
+    grid-row-gap: 16px;
+    align-items: baseline;
+    padding: 0 0 0 30px;
+}
