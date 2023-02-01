@@ -1,0 +1,8 @@
+.places__card-like {
+    box-sizing: border-box;
+    width: 22px;
+    height: 19px;
+    background-image: url(../../../images/symbols/heart.svg);
+    cursor: pointer;
+    border: none;
+}

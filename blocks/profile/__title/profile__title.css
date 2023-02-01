@@ -6,3 +6,9 @@
     color: #FFFFFF;
     margin: 0;
 }
+
+/* @media screen and (max-width: 460px) {
+    .profile__title {
+        text-align: center;
+    }
+} */

@@ -3,8 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    
     margin: 0 auto 0;
+
     /* grid-template-areas: "profile__kusto profile__title profile__edit-button profile__add-button"
     "profile__kusto profile__subtitle profile__edit-button profile__add-button"; */
     /* grid-template-columns: 168px 294px 24px 150px;
