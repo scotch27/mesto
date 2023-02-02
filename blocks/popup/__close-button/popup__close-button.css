@@ -10,4 +10,6 @@
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
+    padding-right: 19px;
+    box-sizing: border-box;
 }
