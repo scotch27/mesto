@@ -17,8 +17,10 @@
         <section class="profile">
             <img src="./images/photo/kusto.jpg" alt="Фотография Жака-Ива Кусто" class="profile__kusto">
             <div class="profile__edit-profile">
-                <h1 class="profile__title">Жак&nbsp;-&nbsp;Ив&nbsp;Кусто</h1>
-                <button class="profile__edit-button"></button>
+                <!-- <div class="profile__edit-name"> -->
+                    <h1 class="profile__title">Жак&nbsp;-&nbsp;Ив&nbsp;Кусто</h1>
+                    <button class="profile__edit-button"></button>
+                <!-- </div> -->
                 <p class="profile__subtitle">Исследователь океана</p>
             </div>
             <button class="profile__add-button">
@@ -31,42 +33,42 @@
                     class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Карачаевск</h2>
-                    <button class="places__card-like"></button>
+                    <button class="places__card-like places__card-like_active"></button>
                 </figcaption>
             </figure>
             <figure class="places__card">
                 <img src="./images/photo/elbrus.jpg" alt="Гора Эльбрус" class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Гора Эльбрус</h2>
-                    <button class="places__card-like"></button>
+                    <button class="places__card-like places__card-like_active"></button>
                 </figcaption>
             </figure>
             <figure class="places__card">
                 <img src="./images/photo/dombai.jpg" alt="Горы на курорте Домбай" class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Домбай</h2>
-                    <button class="places__card-like"></button>
+                    <button class="places__card-like places__card-like_active"></button>
                 </figcaption>
             </figure>
             <figure class="places__card">
                 <img src="./images/photo/elbrus.jpg" alt="Гора Эльбрус" class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Гора Эльбрус</h2>
-                    <button class="places__card-like"></button>
+                    <button class="places__card-like places__card-like_active"></button>
                 </figcaption>
             </figure>
             <figure class="places__card">
                 <img src="./images/photo/dombai.jpg" alt="Горы на курорте Домбай" class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Домбай</h2>
-                    <button class="places__card-like"></button>
+                    <button class="places__card-like places__card-like_active"></button>
                 </figcaption>
             </figure>
             <figure class="places__card">
                 <img src="./images/photo/karachaevsk.jpg" alt="Фото города Карачаевска" class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Карачаево-Черкесия</h2>
-                    <button class="places__card-like"></button>
+                    <button class="places__card-like places__card-like_active"></button>
                 </figcaption>
             </figure>
         </section>
@@ -75,10 +77,10 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
+    <section class="popup popup_opened">
         <form class="popup__container">
             <button class="popup__close-button"></button>
-            <h3 class="popup__title">Редактировать профиль</h3>
+            <h3 class="popup__title">Редактировать&nbsp;профиль</h3>
 
             <fieldset class="popup__input-container">
                 <label class="popup__label">

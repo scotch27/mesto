@@ -1,13 +1,27 @@
 .profile {
     max-width: 880px;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: center;
     margin: 0 auto 0;
 
-    /* grid-template-areas: "profile__kusto profile__title profile__edit-button profile__add-button"
-    "profile__kusto profile__subtitle profile__edit-button profile__add-button"; */
-    /* grid-template-columns: 168px 294px 24px 150px;
-    grid-template-rows: 168px 336px 24px 50px; */
-    /* margin: 36px auto 47px; */
+}
+
+
+
+@media screen and (max-width: 919px) {
+    .profile {
+    flex-direction: column;
+    width: calc(100% - (19px + 19px));
+
+    align-items: center;
+    justify-content: space-between;
+    }
+} 
+
+@media screen and (max-width: 618px) {
+    .profile {
+        max-width: 282px;
+        width: 100%;
+    }
 }

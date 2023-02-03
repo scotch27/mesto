@@ -6,6 +6,7 @@
     width: 150px;
     height: 50px;
     margin: 0 0 0 auto;
+    padding: 0;
     cursor: pointer; 
     transition: 0.4s linear;
 }
@@ -14,9 +15,13 @@
     opacity: 0.6;
 }
 
-
-/* @media screen and (max-width: 460px) {
+@media screen and (max-width: 919px) {
     .profile__add-button {
         width: 100%;
+        justify-content: center;
+        margin: 36px auto 0;
+        padding: 0;
+        max-width: 336px;
     }
-} */
+}
+ 

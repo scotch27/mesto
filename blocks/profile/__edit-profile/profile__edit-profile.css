@@ -1,11 +1,26 @@
 .profile__edit-profile {
     display: grid;
     align-self: center;
-    display: grid;
     grid-template-areas: "profile__title profile__edit-button"
     "profile__subtitle profile__subtitle";
     grid-column-gap: 18px;
     grid-row-gap: 16px;
     align-items: baseline;
     padding: 0 0 0 30px;
+}
+
+@media screen and (max-width: 919px) {
+    .profile__edit-profile {
+        /* width: 100%;
+        max-width: 336px; */
+        padding: 0;
+        margin: 22px auto 0;
+        justify-items: center;
+    }
+}
+
+@media screen and (max-width: 618px) {
+    .profile__edit-profile {
+       
+    }
 }

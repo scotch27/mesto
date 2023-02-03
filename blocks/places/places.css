@@ -10,3 +10,18 @@
     padding: 0;
 
 }
+
+
+
+@media screen and (max-width: 880px) {
+    .places {
+       justify-content: center;
+       width: calc(100% - (19px + 19px));
+    }
+} 
+
+@media screen and (max-width: 768px) {
+    .places {
+       justify-content: center;
+    }
+} 
