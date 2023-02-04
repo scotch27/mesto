@@ -12,5 +12,7 @@
         font-size: 27px;
         line-height: 33px;
         text-align: center;
+        /* word-spacing: -5px; */
+        /* width: 100px; */
     }
 }
