@@ -9,15 +9,15 @@
 @media screen and (max-width: 879px) {
     .header {
         max-width: 581px;
-        width: 100%;
+        /* width: 100%; */
     }
 } 
 
 @media screen and (max-width: 618px) {
     .header {
-        /* max-width: 282px; */
+        max-width: 282px
         width: 100%;
-        padding: 0 27px;
-        margin: 28px 0 40px;
+        padding-left: 27px;
+        /* margin: 28px 0 38px; */
     }
 } 

@@ -18,5 +18,6 @@
     .profile__edit-button {
         max-width: 18px;
         max-height: 18px;;
+        padding: 0;
     }
 } 

@@ -8,3 +8,10 @@
     padding: 25px 15px 31px 21px;
     width: 100%;
 }
+
+
+@media screen and (max-width: 618px) {
+    .places__card-text {
+        padding: 25px 21px 25px;
+    }
+}

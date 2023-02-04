@@ -3,3 +3,8 @@
     width: 120px;
     height: 120px;
 }
+
+@media screen and (max-width: 618px) {
+    .profile__kusto {padding: 5px;
+    }
+} 
