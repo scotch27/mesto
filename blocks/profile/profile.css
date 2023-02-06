@@ -7,12 +7,11 @@
 
 }
 
-
-
-@media screen and (max-width: 919px) {
+@media screen and (max-width: 917px) {
     .profile {
     flex-direction: column;
-    width: calc(100% - (19px + 19px));
+    max-width: 581px;
+    /* width: calc(100% - (19px + 19px)); */
     justify-content: space-between;
     }
 } 

@@ -7,6 +7,8 @@ const formElement = popup.querySelector('.popup__container');
 // Находим поля формы в DOM
 const nameInput = popup.querySelector('#fullname');
 const jobInput = popup.querySelector('#about');
+const profileTitle = document.querySelector('.profile__title');
+const profileSubtitle = document.querySelector('.profile__subtitle');
 
 
 const toggleOpenPopup = function () {
@@ -14,6 +16,8 @@ const toggleOpenPopup = function () {
 }
 
 const handleEditButtonClick = function () {
+    nameInput.value = profileTitle.textContent; //свойству value присвоить значение textContent
+    jobInput.value = profileSubtitle.textContent;
     toggleOpenPopup();
 }
 
@@ -38,17 +42,14 @@ popup.addEventListener('click', handleOverlayButtonClick);
 // она никуда отправляться не будет
 const handleFormSubmit = function (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-   
+    
     // Так мы можем определить свою логику отправки.
     // О том, как это делать, расскажем позже.
-    if(evt.submitter.classList.contains('popup__close-button')){
-        return;
-    }
     // Получите значение полей jobInput и nameInput из свойства value
-    document.querySelector('.profile__title').textContent = nameInput.value;
     // Выберите элементы, куда должны быть вставлены значения полей
-    document.querySelector('.profile__subtitle').textContent = jobInput.value;
     // Вставьте новые значения с помощью textContent
+    profileTitle.textContent = nameInput.value;
+    profileSubtitle.textContent = jobInput.value;
     toggleOpenPopup();
 }
 
