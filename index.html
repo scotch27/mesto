@@ -17,10 +17,10 @@
         <section class="profile">
             <img src="./images/photo/kusto.jpg" alt="Фотография Жака-Ива Кусто" class="profile__image">
             <div class="profile__edit-profile">
-                <!-- <div class="profile__edit-name"> -->
+               
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
-                <button class="profile__edit-button profile__edit-button_type_edit" type="button" aria-label="Редактировать профиль"></button>
-                <!-- </div> -->
+                <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
+                 
                 <p class="profile__subtitle">Исследователь океана</p>
             </div>
             <button class="profile__add-button" type="button" aria-label="Добавить"></button>
@@ -81,13 +81,15 @@
             <form name="profileForm">
                 <h3 class="popup__title">Редактировать&nbsp;профиль</h3>
                 <fieldset class="popup__input-container">
-                    <div class="popup__field">
-                        <input type="text" class="popup__input popup__input_name" id="fullname" name="fullname"
+                    <!-- класс popup__field используется для правильного отображения элемента в модальном окне,
+                        для отображения полосы. В противном случае высота input слишком большая, смотрится не красиво.-->
+                    <div class="popup__field"> 
+                        <input type="text" class="popup__input popup__input_text_fullname" id="fullname" name="fullname"
                              placeholder="Имя" required>
                     </div>
 
-                    <div class="popup__field">
-                        <input type="text" class="popup__input popup__input_profession" id="about" name="about"
+                    <div class="popup__field"> 
+                        <input type="text" class="popup__input popup__input_text_about" id="about" name="about"
                              placeholder="О себе" required>
                     </div>
                 </fieldset>
