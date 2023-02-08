@@ -17,10 +17,10 @@
         <section class="profile">
             <img src="./images/photo/kusto.jpg" alt="Фотография Жака-Ива Кусто" class="profile__image">
             <div class="profile__edit-profile">
-               
+
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
                 <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
-                 
+
                 <p class="profile__subtitle">Исследователь океана</p>
             </div>
             <button class="profile__add-button" type="button" aria-label="Добавить"></button>
@@ -31,21 +31,24 @@
                     class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Карачаевск</h2>
-                    <button class="places__card-like places__card-like_active" type="button" aria-label="Поставить лайк"></button>
+                    <button class="places__card-like places__card-like_active" type="button"
+                        aria-label="Поставить лайк"></button>
                 </figcaption>
             </figure>
             <figure class="places__card">
                 <img src="./images/photo/elbrus.jpg" alt="Гора Эльбрус" class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Гора Эльбрус</h2>
-                    <button class="places__card-like places__card-like_active" type="button" aria-label="Поставить лайк"></button>
+                    <button class="places__card-like places__card-like_active" type="button"
+                        aria-label="Поставить лайк"></button>
                 </figcaption>
             </figure>
             <figure class="places__card">
                 <img src="./images/photo/dombai.jpg" alt="Горы на курорте Домбай" class="places__card-picture">
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title">Домбай</h2>
-                    <button class="places__card-like places__card-like_active" type="button" aria-label="Поставить лайк"></button>
+                    <button class="places__card-like places__card-like_active" type="button"
+                        aria-label="Поставить лайк"></button>
                 </figcaption>
             </figure>
             <figure class="places__card">
@@ -81,23 +84,19 @@
             <form name="profileForm">
                 <h3 class="popup__title">Редактировать&nbsp;профиль</h3>
                 <fieldset class="popup__input-container">
-                    <!-- класс popup__field используется для правильного отображения элемента в модальном окне,
-                        для отображения полосы. В противном случае высота input слишком большая, смотрится не красиво.-->
-                    <div class="popup__field"> 
-                        <input type="text" class="popup__input popup__input_text_fullname" id="fullname" name="fullname"
-                             placeholder="Имя" required>
-                    </div>
 
-                    <div class="popup__field"> 
-                        <input type="text" class="popup__input popup__input_text_about" id="about" name="about"
-                             placeholder="О себе" required>
-                    </div>
+                    <input type="text" class="popup__input popup__input_text_fullname" id="fullname" name="fullname"
+                        placeholder="Имя" required>
+
+                    <input type="text" class="popup__input popup__input_text_about" id="about" name="about"
+                        placeholder="О себе" required>
+
                 </fieldset>
                 <button class="popup__save-button" type="submit">Сохранить</button>
             </form>
         </div>
     </div>
-    <script src="./scripts/index.js"></script>
+ <script src="./scripts/index.js"></script>
 </body>
 
 </html>
