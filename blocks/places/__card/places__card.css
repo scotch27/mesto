@@ -3,4 +3,5 @@
     min-width: 280px;
     min-height: 361px;
     /* width: 100%; */
+    position: relative;
 }
