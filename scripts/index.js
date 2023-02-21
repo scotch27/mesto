@@ -29,7 +29,7 @@ const handleOverlayButtonClick =  (event) =>{
 };
 
 editButton.addEventListener('click', handleEditButtonClick);
-closeButton.addEventListener('click', function(){toggleOpenPopup(popupProfile)});
+closeButton.addEventListener('click', () => {toggleOpenPopup(popupProfile)});
 popupProfile.addEventListener('click', handleOverlayButtonClick);
 
 
