@@ -1,6 +1,15 @@
-const addButton = document.querySelector('.profile__add-button');
+const addPlaceButton = document.querySelector('.profile__add-button');
 const placeTemplate = document.querySelector('#place').content; 
 const places = document.querySelector('.places');
+
+const popupPlace = document.querySelector('#popup-place');
+const closePlaceButton = popupPlace.querySelector('.popup__close-button');
+
+// Находим форму в DOM
+const placeForm = popupPlace.querySelector('.popup__container');
+// // Находим поля формы в DOM
+const placeName = placeForm.querySelector('#placeName');
+const placeLink = placeForm.querySelector('#placeLink');
 
 const initialCards = [
     {
@@ -29,82 +38,50 @@ const initialCards = [
     }
   ];
 
-initialCards.forEach((card) => {
+const addPlaceCard = (name, link) => {
     const placeCard = placeTemplate.querySelector('.places__card').cloneNode(true);
     // наполняем содержимым
-    placeCard.querySelector('.places__card-picture').src = card.link;
-    placeCard.querySelector('.places__card-title').textContent = card.name;
+    placeCard.querySelector('.places__card-picture').src = link;
+    placeCard.querySelector('.places__card-title').textContent = name;
+
+    placeCard.querySelector('.places__card-like').addEventListener('click', (evt) => {
+        evt.target.classList.toggle('places__card-like_active');
+    })
 
     // отображаем на странице
     places.append(placeCard); 
-})
-
-
-
-
-
-
-
-
-// const popup = document.querySelector('.popup');
-// const closeButton = popup.querySelector('.popup__close-button');
-
-// // Находим форму в DOM
-// const formElement = popup.querySelector('.popup__container');
-// // Находим поля формы в DOM
-// const nameInput = popup.querySelector('#fullname');
-// const jobInput = popup.querySelector('#about');
-// const profileTitle = document.querySelector('.profile__title');
-// const profileSubtitle = document.querySelector('.profile__subtitle');
-
-
-// const toggleOpenPopup = function () {
-//     popup.classList.toggle('popup_opened');
-// }
-
-const handleAddButtonClick = function () {
-
-    // клонируем содержимое тега template
-    const placeCard = placeTemplate.querySelector('.places__card').cloneNode(true);
-
-    // наполняем содержимым
-    placeCard.querySelector('.places__card-picture').src = './images/photo/karachaevsk.jpg';
-    placeCard.querySelector('.places__card-title').textContent = 'Карачаевск';
-    places.append(placeCard); 
 }
 
-// const handleCloseButtonClick = function () {
-//     toggleOpenPopup();
-// }
+initialCards.forEach((card) => {
+    addPlaceCard(card.name, card.link);
+})
 
-// const handleOverlayButtonClick = function (event) {
-//     console.log('handleOverlayButtonClick');
-//     if (event.target === event.currentTarget) {
-//         toggleOpenPopup();
-//     }
-// };
+const handleAddButtonClick = () => {
+    placeName.value = "";
+    placeLink.value = "";
+    toggleOpenPopup(popupPlace);
+}
 
-addButton.addEventListener('click', handleAddButtonClick);
-// closeButton.addEventListener('click', toggleOpenPopup);
-// popup.addEventListener('click', handleOverlayButtonClick);
+const handleOverlayPopupPlaceButtonClick = (evt) => {
+    if (evt.target === evt.currentTarget) {
+        toggleOpenPopup(popupPlace);
+    }
+};
 
-
+addPlaceButton.addEventListener('click', handleAddButtonClick);
+closePlaceButton.addEventListener('click', function(){toggleOpenPopup(popupPlace)});
+popupPlace.addEventListener('click', handleOverlayPopupPlaceButtonClick);
 
 // // Обработчик «отправки» формы, хотя пока
 // // она никуда отправляться не будет
-// const handleFormSubmit = function (evt) {
-//     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    
-//     // Так мы можем определить свою логику отправки.
-//     // О том, как это делать, расскажем позже.
-//     // Получите значение полей jobInput и nameInput из свойства value
-//     // Выберите элементы, куда должны быть вставлены значения полей
-//     // Вставьте новые значения с помощью textContent
-//     profileTitle.textContent = nameInput.value;
-//     profileSubtitle.textContent = jobInput.value;
-//     toggleOpenPopup();
-// }
+const handlePlaceFormSubmit = (evt) => {
+    evt.preventDefault();     
+    addPlaceCard(placeName.value, placeLink.value);
+    toggleOpenPopup(popupPlace);
+}
 
 // // Прикрепляем обработчик к форме:
 // // он будет следить за событием “submit” - «отправка»
-// formElement.addEventListener('submit', handleFormSubmit); 
+placeForm.addEventListener('submit', handlePlaceFormSubmit); 
+
+// places__card-like
