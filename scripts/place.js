@@ -48,6 +48,10 @@ const addPlaceCard = (name, link) => {
         evt.target.classList.toggle('places__card-like_active');
     })
 
+    placeCard.querySelector('.places__basket-button').addEventListener('click', (evt) => {
+        evt.target.parentElement.remove();
+    })
+
     // отображаем на странице
     places.append(placeCard); 
 }
@@ -83,5 +87,3 @@ const handlePlaceFormSubmit = (evt) => {
 // // Прикрепляем обработчик к форме:
 // // он будет следить за событием “submit” - «отправка»
 placeForm.addEventListener('submit', handlePlaceFormSubmit); 
-
-// places__card-like
