@@ -67,10 +67,10 @@ const addPlaceCard = (name, link) => {
   })
 
     // отображаем на странице
-    places.append(placeCard); 
+    places.prepend(placeCard); 
 }
 
-initialCards.forEach((card) => {
+initialCards.reverse().forEach((card) => {
     addPlaceCard(card.name, card.link);
 })
 
