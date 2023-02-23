@@ -21,10 +21,13 @@ const handleEditButtonClick =  () =>{
     toggleOpenPopup(popupProfile);
 }
 
-const handleOverlayButtonClick =  (event) =>{
-    console.log('handleOverlayButtonClick');
-    if (event.target === event.currentTarget) {
-        toggleOpenPopup(popupProfile);
+const handleCloseButtonClick =  (evt) =>{
+    toggleOpenPopup(evt.target.parentElement.parentElement);
+};
+
+const handleOverlayButtonClick =  (evt) =>{
+    if (evt.target === evt.currentTarget) {
+        toggleOpenPopup(evt.target);
     }
 };
 
