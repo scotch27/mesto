@@ -13,5 +13,5 @@
     box-sizing: border-box;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity .3s linear;
+    transition: visibility .3s, opacity .3s linear;
 }
