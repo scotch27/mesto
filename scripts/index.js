@@ -1,6 +1,6 @@
 const editButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('#popup-profile');
-const closeButton = popupProfile.querySelector('.popup__close-button');
+const closeButtons = document.querySelectorAll('.popup__close-button');
 
 // Находим форму в DOM
 const formElement = popupProfile.querySelector('.popup__container');
@@ -32,10 +32,12 @@ const handleOverlayButtonClick =  (evt) =>{
 };
 
 editButton.addEventListener('click', handleEditButtonClick);
-closeButton.addEventListener('click', () => {toggleOpenPopup(popupProfile)});
 popupProfile.addEventListener('click', handleOverlayButtonClick);
 
 
+closeButtons.forEach(element =>{
+  element.addEventListener('click', handleCloseButtonClick);
+});
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -62,10 +64,8 @@ const placeTemplate = document.querySelector('#place').content;
 const places = document.querySelector('.places');
 
 const popupPlace = document.querySelector('#popup-place');
-const closePlaceButton = popupPlace.querySelector('.popup__close-button');
 
 const popupImage = document.querySelector('#popup-image');
-const closeImageButton = popupImage.querySelector('.popup__close-button');
 
 
 // Находим форму в DOM
@@ -140,10 +140,9 @@ const handleAddButtonClick = () => {
 }
 
 addPlaceButton.addEventListener('click', handleAddButtonClick);
-closePlaceButton.addEventListener('click', handleCloseButtonClick);
 popupPlace.addEventListener('click', handleOverlayButtonClick);
 
-closeImageButton.addEventListener('click', handleCloseButtonClick);
+// closeImageButton.addEventListener('click', handleCloseButtonClick);
 popupImage.addEventListener('click', handleOverlayButtonClick);
 
 // // Обработчик «отправки» формы, хотя пока
