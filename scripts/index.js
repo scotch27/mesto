@@ -2,11 +2,10 @@ const closeButtons = document.querySelectorAll(".popup__close-button");
 
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 const popupProfile = document.querySelector("#popup-profile");
-// const formPopupProfile = popupProfile.querySelector('.popup__container');
 
-const formPopupProfile = document.forms.profileForm;
-const nameInput = formPopupProfile.querySelector("#fullname");
-const jobInput = formPopupProfile.querySelector("#about");
+const profileForm = document.forms.profileForm;
+const nameInput = profileForm.querySelector("#fullname");
+const jobInput = profileForm.querySelector("#about");
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
@@ -45,7 +44,7 @@ const handleCloseButtonClick = (evt) => {
 const handleEditProfileButtonClick = () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  updateStateForm(formPopupProfile, validateFormOptions);
+  updateStateForm(profileForm, validateFormOptions);
   openPopup(popupProfile);
 };
 
@@ -124,7 +123,7 @@ closeButtons.forEach((element) => {
   element.addEventListener("click", handleCloseButtonClick);
 });
 
-formPopupProfile.addEventListener("submit", handleFormProfileSubmit);
+profileForm.addEventListener("submit", handleFormProfileSubmit);
 
 buttonOpenPopupPlace.addEventListener("click", handleAddButtonClick);
 popupPlace.addEventListener("click", handleOverlayButtonClick);
