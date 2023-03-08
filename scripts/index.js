@@ -23,13 +23,12 @@ const placeLink = placeForm.querySelector("#placeLink");
 
 // объявление функций
 
-
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
 
   const handleCloseButtonEscape = (evt) => {
     if(evt.key === 'Escape'){
-      popup.classList.remove('popup_opened');
+      closePopup(popup);
       document.removeEventListener('keydown', handleCloseButtonEscape);
     };
   }
