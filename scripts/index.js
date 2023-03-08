@@ -23,14 +23,18 @@ const placeLink = placeForm.querySelector("#placeLink");
 
 // объявление функций
 
+
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-  
-  document.addEventListener('keydown', (evt) => {
+
+  const handleCloseButtonEscape = (evt) => {
     if(evt.key === 'Escape'){
       popup.classList.remove('popup_opened');
+      document.removeEventListener('keydown', handleCloseButtonEscape);
     };
-  });
+  }
+
+  document.addEventListener('keydown', handleCloseButtonEscape);
 };
 
 const closePopup = (popup) => {
@@ -38,7 +42,7 @@ const closePopup = (popup) => {
 };
 
 const handleCloseButtonClick = (evt) => {
-  closePopup(evt.target.parentElement.parentElement);
+  closePopup(evt.target.closest(".popup"));
 };
 
 const handleEditProfileButtonClick = () => {
@@ -79,7 +83,7 @@ const createPlaceCard = (name, link) => {
   });
 
   placeCardBasket.addEventListener("click", (evt) => {
-    evt.target.parentElement.remove();
+    evt.target.closest(".places__card").remove();
   });
 
   placeCardPicture.addEventListener("click", (evt) => {
