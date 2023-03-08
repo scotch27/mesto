@@ -26,6 +26,12 @@ const placeLink = placeForm.querySelector("#placeLink");
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
+  
+  document.addEventListener('keydown', (evt) => {
+    if(evt.key === 'Escape'){
+      popup.classList.remove('popup_opened');
+    };
+  });
 };
 
 const closePopup = (popup) => {
