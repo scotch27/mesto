@@ -127,3 +127,17 @@ initialCards.forEach((card) => {
   const placeCard = createPlaceCard(card.name, card.link);
   appendPlaceCard(placeCard);
 })
+
+// Валидация Формы
+const validateFormOptions = {
+  formSelector: '.form',
+  submitSelector: '.form__save-button',
+  inputSelector: '.form__input',
+  inputSelectionSelector: '.form__field',
+  inputErrorSelector: '.form__input-error',
+  inputErrorClass: 'form__input-error_active',
+  inputTypeErrorClass: 'form__input_type_error',
+  disabledButtonClass: 'form__save-button_inactive'
+};
+
+enableValidation(validateFormOptions);
