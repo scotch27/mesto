@@ -32,6 +32,18 @@ const toggleInputState = (inputElement, options) => {
   }
 };
 
+const toggleButtonState = (inputs, submitElement, options) => {
+  const formIsValid = inputs.every(
+    (inputElement) => inputElement.validity.valid
+  );
+
+  if (formIsValid) {
+    enableButton(submitElement, options.disabledButtonClass);
+  } else {
+    disableButton(submitElement, options.disabledButtonClass);
+  }
+};
+
 const setEventListeners = (form, options) => {
   const submitElement = form.querySelector(options.submitSelector);
   const inputs = Array.from(form.querySelectorAll(options.inputSelector));
@@ -42,18 +54,23 @@ const setEventListeners = (form, options) => {
       toggleButtonState(inputs, submitElement, options);
     });
   });
+  toggleButtonState(inputs, submitElement, options);
+};
 
-  const toggleButtonState = (inputs, submitElement, options) => {
-    const formIsValid = inputs.every(
-      (inputElement) => inputElement.validity.valid
-    );
-
-    if (formIsValid) {
-      enableButton(submitElement, options.disabledButtonClass);
+// Обновить состояние формы
+const updateStateForm = (form, options, showError = false) => {
+  const submitElement = form.querySelector(options.submitSelector);
+  const inputs = Array.from(form.querySelectorAll(options.inputSelector));
+  inputs.forEach((inputElement) => {
+    if (showError) {
+      toggleInputState(inputElement, validateFormOptions);
     } else {
-      disableButton(submitElement, options.disabledButtonClass);
+      const errorElement = inputElement
+        .closest(options.inputSelectionSelector)
+        .querySelector(options.inputErrorSelector);
+      hiddenError(inputElement, errorElement, options);
     }
-  };
+  });
   toggleButtonState(inputs, submitElement, options);
 };
 
