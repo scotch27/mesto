@@ -25,16 +25,16 @@ const placeLink = placeForm.querySelector("#placeLink");
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-
-  const handleCloseButtonEscape = (evt) => {
-    if(evt.key === 'Escape'){
-      closePopup(popup);
-      document.removeEventListener('keydown', handleCloseButtonEscape);
-    };
-  }
-
-  document.addEventListener('keydown', handleCloseButtonEscape);
+  document.addEventListener("keydown", closeByEscape);
 };
+
+function closeByEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+    document.removeEventListener("keydown", closeByEscape);
+  }
+}
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
