@@ -30,18 +30,14 @@ const openPopup = (popup) => {
 
 function closeByEscape(evt) {
   if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-    document.removeEventListener("keydown", closeByEscape);
+    closePopup();
   }
 }
 
-const closePopup = (popup) => {
+const closePopup = () => {
+  const popup = document.querySelector(".popup_opened");
   popup.classList.remove("popup_opened");
-};
-
-const handleCloseButtonClick = (evt) => {
-  closePopup(evt.target.closest(".popup"));
+  document.removeEventListener("keydown", closeByEscape);
 };
 
 const handleEditProfileButtonClick = () => {
@@ -53,7 +49,7 @@ const handleEditProfileButtonClick = () => {
 
 const handleOverlayButtonClick = (evt) => {
   if (evt.target === evt.currentTarget) {
-    closePopup(evt.target);
+    closePopup();
   }
 };
 
@@ -61,7 +57,7 @@ const handleFormProfileSubmit = (evt) => {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  closePopup(popupProfile);
+  closePopup();
 };
 
 const createPlaceCard = (name, link) => {
@@ -113,7 +109,7 @@ const handlePlaceFormSubmit = (evt) => {
   evt.preventDefault();
   const placeCard = createPlaceCard(placeName.value, placeLink.value);
   prependPlaceCard(placeCard);
-  closePopup(popupPlace);
+  closePopup();
 };
 
 // слушатели событий
@@ -123,7 +119,7 @@ buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
 popupProfile.addEventListener("click", handleOverlayButtonClick);
 
 closeButtons.forEach((element) => {
-  element.addEventListener("click", handleCloseButtonClick);
+  element.addEventListener("click", closePopup);
 });
 
 profileForm.addEventListener("submit", handleFormProfileSubmit);
