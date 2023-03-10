@@ -36,8 +36,10 @@ function closeByEscape(evt) {
 
 const closePopup = () => {
   const popup = document.querySelector(".popup_opened");
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEscape);
+  if (popup) {
+    popup.classList.remove("popup_opened");
+    document.removeEventListener("keydown", closeByEscape);
+  }
 };
 
 const handleEditProfileButtonClick = () => {
