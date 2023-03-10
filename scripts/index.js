@@ -32,7 +32,7 @@ function closeByEscape(evt) {
   if (evt.key === "Escape") {
     closePopup();
   }
-}
+};
 
 const closePopup = () => {
   const popup = document.querySelector(".popup_opened");
