@@ -1,3 +1,9 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
+// const newFormValidator = new FormValidator("Hello FormValidator");
+
+// старый код
 const closeButtons = document.querySelectorAll(".popup__close-button");
 
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
@@ -9,8 +15,11 @@ const jobInput = profileForm.querySelector("#about");
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
-const buttonOpenPopupPlace = document.querySelector(".profile__add-button");
+// Place
+
 const placeTemplate = document.querySelector("#place").content;
+const buttonOpenPopupPlace = document.querySelector(".profile__add-button");
+
 const places = document.querySelector(".places");
 const popupPlace = document.querySelector("#popup-place");
 const popupImage = document.querySelector("#popup-image");
@@ -62,35 +71,11 @@ const handleFormProfileSubmit = (evt) => {
   closePopup();
 };
 
-const createPlaceCard = (name, link) => {
-  const placeCard = placeTemplate
-    .querySelector(".places__card")
-    .cloneNode(true);
-  const placeCardPicture = placeCard.querySelector(".places__card-picture");
-  const placeCardTitle = placeCard.querySelector(".places__card-title");
-  const placeCardLike = placeCard.querySelector(".places__card-like");
-  const placeCardBasket = placeCard.querySelector(".places__basket-button");
-
-  placeCardPicture.src = link;
-  placeCardPicture.alt = name;
-  placeCardTitle.textContent = name;
-
-  placeCardLike.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("places__card-like_active");
-  });
-
-  placeCardBasket.addEventListener("click", (evt) => {
-    evt.target.closest(".places__card").remove();
-  });
-
-  placeCardPicture.addEventListener("click", (evt) => {
-    popupImagePicture.src = link;
-    popupImagePicture.alt = name;
-    popupImageCaption.textContent = name;
-    openPopup(popupImage);
-  });
-
-  return placeCard;
+const handleCardClick = (name, link) => {
+  popupImagePicture.src = link;
+  popupImagePicture.alt = name;
+  popupImageCaption.textContent = name;
+  openPopup(popupImage);
 };
 
 const prependPlaceCard = (placeCard) => {
@@ -109,8 +94,12 @@ const handleAddButtonClick = () => {
 
 const handlePlaceFormSubmit = (evt) => {
   evt.preventDefault();
-  const placeCard = createPlaceCard(placeName.value, placeLink.value);
-  prependPlaceCard(placeCard);
+  const card= {
+    name: placeName.value,
+    link: placeLink.value
+  };
+  const placeCard = new Card(card, "#place", handleCardClick);
+  prependPlaceCard(placeCard.generateCard());
   closePopup();
 };
 
@@ -136,8 +125,8 @@ placeForm.addEventListener("submit", handlePlaceFormSubmit);
 // вызовы функций
 
 initialCards.forEach((card) => {
-  const placeCard = createPlaceCard(card.name, card.link);
-  appendPlaceCard(placeCard);
+  const placeCard = new Card(card, "#place", handleCardClick);
+  appendPlaceCard(placeCard.generateCard());
 });
 
 // Валидация Формы
