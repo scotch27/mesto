@@ -1,7 +1,7 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
-// const newFormValidator = new FormValidator("Hello FormValidator");
+
 
 // старый код
 const closeButtons = document.querySelectorAll(".popup__close-button");
@@ -54,7 +54,8 @@ const closePopup = () => {
 const handleEditProfileButtonClick = () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  updateStateForm(profileForm, validateFormOptions);
+  //TODO: 
+  // updateStateForm(profileForm, validateFormOptions);
   openPopup(popupProfile);
 };
 
@@ -88,7 +89,8 @@ const appendPlaceCard = (placeCard) => {
 
 const handleAddButtonClick = () => {
   placeForm.reset();
-  updateStateForm(placeForm, validateFormOptions);
+  //TODO:
+  // updateStateForm(placeForm, validateFormOptions);
   openPopup(popupPlace);
 };
 
@@ -141,4 +143,14 @@ const validateFormOptions = {
   disabledButtonClass: "form__save-button_inactive",
 };
 
-enableValidation(validateFormOptions);
+// enableValidation(validateFormOptions);
+
+const forms = Array.from(document.querySelectorAll(".form"));
+
+forms.forEach(form =>{
+  new FormValidator(validateFormOptions, form).enableValidation();
+  // newFormValidator.enableValidation();
+});
+
+// const newFormValidator = new FormValidator(validateFormOptions, forms[1]);
+// newFormValidator.enableValidation();
