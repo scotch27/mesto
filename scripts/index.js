@@ -1,11 +1,7 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
-
-
-// старый код
 const closeButtons = document.querySelectorAll(".popup__close-button");
-
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 const popupProfile = document.querySelector("#popup-profile");
 
@@ -15,9 +11,6 @@ const jobInput = profileForm.querySelector("#about");
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
-// Place
-
-const placeTemplate = document.querySelector("#place").content;
 const buttonOpenPopupPlace = document.querySelector(".profile__add-button");
 
 const places = document.querySelector(".places");
@@ -41,7 +34,7 @@ function closeByEscape(evt) {
   if (evt.key === "Escape") {
     closePopup();
   }
-};
+}
 
 const closePopup = () => {
   const popup = document.querySelector(".popup_opened");
@@ -54,8 +47,7 @@ const closePopup = () => {
 const handleEditProfileButtonClick = () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  //TODO: 
-  // updateStateForm(profileForm, validateFormOptions);
+  profileFormValidator.updateStateForm();
   openPopup(popupProfile);
 };
 
@@ -89,16 +81,15 @@ const appendPlaceCard = (placeCard) => {
 
 const handleAddButtonClick = () => {
   placeForm.reset();
-  //TODO:
-  // updateStateForm(placeForm, validateFormOptions);
+  placeFormValidator.updateStateForm();
   openPopup(popupPlace);
 };
 
 const handlePlaceFormSubmit = (evt) => {
   evt.preventDefault();
-  const card= {
+  const card = {
     name: placeName.value,
-    link: placeLink.value
+    link: placeLink.value,
   };
   const placeCard = new Card(card, "#place", handleCardClick);
   prependPlaceCard(placeCard.generateCard());
@@ -143,14 +134,14 @@ const validateFormOptions = {
   disabledButtonClass: "form__save-button_inactive",
 };
 
-// enableValidation(validateFormOptions);
+const profileFormValidator = new FormValidator(
+  validateFormOptions,
+  document.querySelector("#profileForm")
+);
+profileFormValidator.enableValidation();
 
-const forms = Array.from(document.querySelectorAll(".form"));
-
-forms.forEach(form =>{
-  new FormValidator(validateFormOptions, form).enableValidation();
-  // newFormValidator.enableValidation();
-});
-
-// const newFormValidator = new FormValidator(validateFormOptions, forms[1]);
-// newFormValidator.enableValidation();
+const placeFormValidator = new FormValidator(
+  validateFormOptions,
+  document.querySelector("#placeForm")
+);
+placeFormValidator.enableValidation();
