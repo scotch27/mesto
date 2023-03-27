@@ -14,18 +14,24 @@ class Card {
     return cardElement;
   }
 
+  _toggleLike(evt) {
+    evt.target.classList.toggle("places__card-like_active");
+  }
+
+  _deleteCard(evt) {
+    evt.target.closest(".places__card").remove();
+  }
+
+  _handleImageClick() {
+    this._handleCardClick(this._name, this._link);
+  }
+
   _setEventListeners() {
-    this._placeCardLike.addEventListener("click", (evt) => {
-      evt.target.classList.toggle("places__card-like_active");
-    });
+    this._placeCardLike.addEventListener("click", (evt) => this._toggleLike(evt));
 
-    this._placeCardBasket.addEventListener("click", (evt) => {
-      evt.target.closest(".places__card").remove();
-    });
+    this._placeCardBasket.addEventListener("click", (evt) => this._deleteCard(evt));
 
-    this._placeCardPicture.addEventListener("click", (evt) => {
-      this._handleCardClick(this._name, this._link);
-    });
+    this._placeCardPicture.addEventListener("click", () => this._handleImageClick());
   }
 
   generateCard() {
