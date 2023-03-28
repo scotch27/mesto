@@ -124,7 +124,6 @@ initialCards.forEach((card) => {
 
 // Валидация Формы
 const validateFormOptions = {
-  formSelector: ".form",
   submitSelector: ".form__save-button",
   inputSelector: ".form__input",
   inputSelectionSelector: ".form__field",
