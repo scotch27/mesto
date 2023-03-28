@@ -1,7 +1,7 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
-const closeButtons = document.querySelectorAll(".popup__close-button");
+const popups = document.querySelectorAll(".popup");
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 const popupProfile = document.querySelector("#popup-profile");
 
@@ -49,12 +49,6 @@ const handleEditProfileButtonClick = () => {
   jobInput.value = profileSubtitle.textContent;
   profileFormValidator.updateStateForm();
   openPopup(popupProfile);
-};
-
-const handleOverlayButtonClick = (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup();
-  }
 };
 
 const handleFormProfileSubmit = (evt) => {
@@ -105,20 +99,9 @@ const handlePlaceFormSubmit = (evt) => {
 // слушатели событий
 
 buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
-
-popupProfile.addEventListener("click", handleOverlayButtonClick);
-
-closeButtons.forEach((element) => {
-  element.addEventListener("click", closePopup);
-});
-
 profileForm.addEventListener("submit", handleFormProfileSubmit);
 
 buttonOpenPopupPlace.addEventListener("click", handleAddButtonClick);
-popupPlace.addEventListener("click", handleOverlayButtonClick);
-
-popupImage.addEventListener("click", handleOverlayButtonClick);
-
 placeForm.addEventListener("submit", handlePlaceFormSubmit);
 
 // вызовы функций
@@ -126,6 +109,17 @@ placeForm.addEventListener("submit", handlePlaceFormSubmit);
 initialCards.forEach((card) => {
   const placeCard = createCard(card);
   appendPlaceCard(placeCard);
+});
+
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  });
 });
 
 // Валидация Формы
