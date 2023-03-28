@@ -85,14 +85,20 @@ const handleAddButtonClick = () => {
   openPopup(popupPlace);
 };
 
+const createCard = (item) => {
+  const placeCard = new Card(item, "#place", handleCardClick);
+  const cardElement = placeCard.generateCard();
+  return cardElement;
+};
+
 const handlePlaceFormSubmit = (evt) => {
   evt.preventDefault();
   const card = {
     name: placeName.value,
     link: placeLink.value,
   };
-  const placeCard = new Card(card, "#place", handleCardClick);
-  prependPlaceCard(placeCard.generateCard());
+  const placeCard = createCard(card);
+  prependPlaceCard(placeCard);
   closePopup();
 };
 
@@ -118,8 +124,8 @@ placeForm.addEventListener("submit", handlePlaceFormSubmit);
 // вызовы функций
 
 initialCards.forEach((card) => {
-  const placeCard = new Card(card, "#place", handleCardClick);
-  appendPlaceCard(placeCard.generateCard());
+  const placeCard = createCard(card);
+  appendPlaceCard(placeCard);
 });
 
 // Валидация Формы

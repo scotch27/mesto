@@ -18,9 +18,8 @@ class FormValidator {
     this._inputErrorClass = inputErrorClass;
     this._inputTypeErrorClass = inputTypeErrorClass;
     this._disabledButtonClass = disabledButtonClass;
-    // this._elementFormValidate = elementFormValidate;
     this._submitElement = elementFormValidate.querySelector(this._submitSelector);
-    this._inputs = Array.from(elementFormValidate.querySelectorAll(this._inputSelector));
+    this._inputElements = Array.from(elementFormValidate.querySelectorAll(this._inputSelector));
   }
 
   enableValidation() {
@@ -62,10 +61,9 @@ class FormValidator {
   };
 
   _toggleButtonState = ( ) => {
-    const formIsValid = this._inputs.every(
+    const formIsValid = this._inputElements.every(
       (inputElement) => inputElement.validity.valid
     );
-
     if (formIsValid) {
       this._enableButton( );
     } else {
@@ -74,7 +72,7 @@ class FormValidator {
   };
 
   _setEventListeners = () => {
-    this._inputs.forEach((inputElement) => {
+    this._inputElements.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._toggleInputState(inputElement);
         this._toggleButtonState();
@@ -85,7 +83,7 @@ class FormValidator {
 
   // Обновить состояние формы
   updateStateForm = (showError = false) => {
-    this._inputs.forEach((inputElement) => {
+    this._inputElements.forEach((inputElement) => {
       if (showError) {
         this._toggleInputState(inputElement);
       } else {
