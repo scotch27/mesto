@@ -3,10 +3,13 @@
 Этот класс должен перезаписывать родительский метод open. 
 В методе open класса PopupWithImage нужно вставлять в попап картинку с src изображения и подписью к картинке.
 */
-import Popup from './Popup.js';
+import Popup from "./Popup.js";
 
 class PopupWithImage extends Popup {
-  constructor(popupSelector, { image, description }) {
+  constructor(
+    popupSelector,
+    { image = ".popup__picture", description = ".popup__caption" }
+  ) {
     super(popupSelector);
     this._image = this._selector.querySelector(image);
     this._description = this._selector.querySelector(description);
@@ -15,8 +18,8 @@ class PopupWithImage extends Popup {
   open(image, description) {
     super.open();
     this._image.src = image;
-    this._description.textContent = description;
     this._image.alt = description;
+    this._description.textContent = description;
   }
 }
 
