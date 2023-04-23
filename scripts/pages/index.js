@@ -1,5 +1,10 @@
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 
 const popups = document.querySelectorAll(".popup");
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
@@ -13,7 +18,7 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const buttonOpenPopupPlace = document.querySelector(".profile__add-button");
 
-const places = document.querySelector(".places");
+// const places = document.querySelector(".places");
 const popupPlace = document.querySelector("#popup-place");
 const popupImage = document.querySelector("#popup-image");
 const popupImagePicture = popupImage.querySelector(".popup__picture");
@@ -24,6 +29,27 @@ const placeName = placeForm.querySelector("#placeName");
 const placeLink = placeForm.querySelector("#placeLink");
 
 // объявление функций
+
+/*
+  Функция инициализирующая cardsList с передачей в конструктор массива карточек initialCards 
+    и функции renderer, которая отвечает за создание и отрисовку карточек
+  После инициализаии  отрисовывает карточки.
+*/
+const getCardsList = () => {
+  const cardsList = new Section(
+    {
+      items: initialCards.reverse(),
+      renderer: (data) => {
+        const placeCard = createCard(data);
+        cardsList.addItem(placeCard);
+      },
+    },
+    ".places"
+  );
+
+  cardsList.renderItems(); // отрисовка всех карточек
+  return cardsList;
+};
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
@@ -45,16 +71,20 @@ const closePopup = () => {
 };
 
 const handleEditProfileButtonClick = () => {
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
+  const userInfoData = userInfo.getUserInfo();
+  nameInput.value = userInfoData.name;
+  jobInput.value = userInfoData.about;
   profileFormValidator.updateStateForm();
   openPopup(popupProfile);
 };
 
 const handleFormProfileSubmit = (evt) => {
   evt.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = jobInput.value;
+  userInfo.setUserInfo({
+    name: nameInput.value,
+    about: jobInput.value,
+  });
+
   closePopup();
 };
 
@@ -63,14 +93,6 @@ const handleCardClick = (name, link) => {
   popupImagePicture.alt = name;
   popupImageCaption.textContent = name;
   openPopup(popupImage);
-};
-
-const prependPlaceCard = (placeCard) => {
-  places.prepend(placeCard);
-};
-
-const appendPlaceCard = (placeCard) => {
-  places.append(placeCard);
 };
 
 const handleAddButtonClick = () => {
@@ -92,7 +114,7 @@ const handlePlaceFormSubmit = (evt) => {
     link: placeLink.value,
   };
   const placeCard = createCard(card);
-  prependPlaceCard(placeCard);
+  cardsList.addItem(placeCard);
   closePopup();
 };
 
@@ -106,9 +128,11 @@ placeForm.addEventListener("submit", handlePlaceFormSubmit);
 
 // вызовы функций
 
-initialCards.forEach((card) => {
-  const placeCard = createCard(card);
-  appendPlaceCard(placeCard);
+const cardsList = getCardsList();
+
+const userInfo = new UserInfo({
+  name: ".profile__title",
+  about: ".profile__subtitle",
 });
 
 popups.forEach((popup) => {
