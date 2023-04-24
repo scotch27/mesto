@@ -5,9 +5,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 
-// const popups = document.querySelectorAll(".popup");
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
-const popupProfile = document.querySelector("#popup-profile");
 
 const profileForm = document.forms.profileForm;
 const nameInput = profileForm.querySelector("#fullname");
@@ -15,136 +13,13 @@ const jobInput = profileForm.querySelector("#about");
 
 const buttonOpenPopupPlace = document.querySelector(".profile__add-button");
 
-const popupPlace = document.querySelector("#popup-place");
+// const popupPlace = document.querySelector("#popup-place");
 
 const placeForm = document.forms.placeForm;
 const placeName = placeForm.querySelector("#placeName");
 const placeLink = placeForm.querySelector("#placeLink");
 
-// объявление функций
 
-/*
-  Функция инициализирующая cardsList с передачей в конструктор массива карточек initialCards 
-    и функции renderer, которая отвечает за создание и отрисовку карточек
-  После инициализаии  отрисовывает карточки.
-*/
-const getCardsList = () => {
-  const cardsList = new Section(
-    {
-      items: initialCards.reverse(),
-      renderer: (data) => {
-        const placeCard = createCard(data);
-        cardsList.addItem(placeCard);
-      },
-    },
-    ".places"
-  );
-
-  cardsList.renderItems(); // отрисовка всех карточек
-  return cardsList;
-};
-
-// const openPopup = (popup) => {
-//   popup.classList.add("popup_opened");
-//   // document.addEventListener("keydown", closeByEscape);
-// };
-
-// function closeByEscape(evt) {
-//   if (evt.key === "Escape") {
-//     closePopup();
-//   }
-// }
-
-// const closePopup = () => {
-//   const popup = document.querySelector(".popup_opened");
-//   // if (popup) {
-//   //   popup.classList.remove("popup_opened");
-//   //   // document.removeEventListener("keydown", closeByEscape);
-//   // }
-// };
-
-const handleEditProfileButtonClick = () => {
-  const userInfoData = userInfo.getUserInfo();
-  nameInput.value = userInfoData.name;
-  jobInput.value = userInfoData.about;
-  profileFormValidator.updateStateForm();
-  profilePopupForm.open();
-};
-
-// const handleFormProfileSubmit = (evt) => {
-//   evt.preventDefault();
-//   userInfo.setUserInfo({
-//     name: nameInput.value,
-//     about: jobInput.value,
-//   });
-
-//   closePopup();
-// };
-
-const handleCardClick = (name, link) => {
-  popupWithImage.open(link, name);
-};
-
-const handleAddButtonClick = () => {
-  placeForm.reset();
-  placeFormValidator.updateStateForm();
-  openPopup(popupPlace);
-};
-
-const createCard = (item) => {
-  const placeCard = new Card(item, "#place", handleCardClick);
-  const cardElement = placeCard.generateCard();
-  return cardElement;
-};
-
-const handlePlaceFormSubmit = (evt) => {
-  evt.preventDefault();
-  const card = {
-    name: placeName.value,
-    link: placeLink.value,
-  };
-  const placeCard = createCard(card);
-  cardsList.addItem(placeCard);
-  closePopup();
-};
-
-// слушатели событий
-
-// profileForm.addEventListener("submit", handleFormProfileSubmit);
-
-// buttonOpenPopupPlace.addEventListener("click", handleAddButtonClick);
-// placeForm.addEventListener("submit", handlePlaceFormSubmit);
-
-// вызовы функций
-
-const cardsList = getCardsList();
-
-const userInfo = new UserInfo({});
-
-const popupWithImage = new PopupWithImage("#popup-image", {});
-popupWithImage.setEventListeners();
-
-// Создаем формы
-const profilePopupForm = new PopupWithForm("#popup-profile", (data) => {
-  userInfo.setUserInfo({
-    name: data.fullname,
-    about: data.about,
-  });
-  profilePopupForm.close();
-});
-profilePopupForm.setEventListeners();
-buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
-
-// popups.forEach((popup) => {
-//   popup.addEventListener("mousedown", (evt) => {
-//     if (evt.target.classList.contains("popup_opened")) {
-//       closePopup(popup);
-//     }
-//     if (evt.target.classList.contains("popup__close-button")) {
-//       closePopup(popup);
-//     }
-//   });
-// });
 
 // Валидация Формы
 const validateFormOptions = {
@@ -157,14 +32,118 @@ const validateFormOptions = {
   disabledButtonClass: "form__save-button_inactive",
 };
 
-const profileFormValidator = new FormValidator(
-  validateFormOptions,
-  document.querySelector("#profileForm")
-);
-profileFormValidator.enableValidation();
 
-const placeFormValidator = new FormValidator(
-  validateFormOptions,
-  document.querySelector("#placeForm")
-);
-placeFormValidator.enableValidation();
+// объявление функций
+
+/*
+  Функция инициализирующая cardsList с передачей в конструктор массива карточек initialCards 
+    и функции renderer, которая отвечает за создание и отрисовку карточек
+  После инициализаии  отрисовывает карточки.
+*/
+const createCardsList = () => {
+  const cardsList = new Section(
+    {
+      items: initialCards.reverse(),
+      renderer: (data) => {
+        const placeCard = createCard(data);
+        cardsList.addItem(placeCard);
+      },
+    },
+    ".places"
+  );
+  cardsList.renderItems();
+  return cardsList;
+};
+
+/*
+  Функция для создания popupProfile 
+*/
+const createPopupProfile = () => {
+  const handleEditProfileButtonClick = () => {
+    const userInfoData = userInfo.getUserInfo();
+    nameInput.value = userInfoData.name;
+    jobInput.value = userInfoData.about;
+    profileFormValidator.updateStateForm();
+    popupProfile.open();
+  };
+  const popupProfile = new PopupWithForm("#popup-profile", (data) => {
+    userInfo.setUserInfo({
+      name: data.fullname,
+      about: data.about,
+    });
+    popupProfile.close();
+  });
+  popupProfile.setEventListeners();
+  buttonOpenPopupProfile.addEventListener(
+    "click",
+    handleEditProfileButtonClick
+  );
+
+  // Валидация формы profileForm
+  const profileFormValidator = new FormValidator(
+    validateFormOptions,
+    document.querySelector("#profileForm")
+  );
+  profileFormValidator.enableValidation();
+
+  return popupProfile;
+};
+
+/*
+  Функция для создания popupPlace
+*/
+const createPopupPlace = () => {
+  const handleAddButtonClick = () => {
+    placeForm.reset();
+    placeFormValidator.updateStateForm();
+    popupPlace.open();
+  };
+  const popupPlace = new PopupWithForm("#popup-place", () => {
+    console.log("popuPlace action");
+    const card = {
+      name: placeName.value,
+      link: placeLink.value,
+    };
+    const placeCard = createCard(card);
+    cardsList.addItem(placeCard);
+    popupPlace.close();
+  });
+  popupPlace.setEventListeners();
+  buttonOpenPopupPlace.addEventListener("click", handleAddButtonClick);
+
+  // Валидация формы placeForm
+  const placeFormValidator = new FormValidator(
+    validateFormOptions,
+    document.querySelector("#placeForm")
+  );
+  placeFormValidator.enableValidation();
+
+  return popupPlace;
+};
+
+/*
+  Функция для создания popupWithImage
+*/
+const createPopupWithImage = () => {
+  const popupWithImage = new PopupWithImage("#popup-image", {});
+  popupWithImage.setEventListeners();
+  return popupWithImage;
+};
+
+const handleCardClick = (name, link) => {
+  popupWithImage.open(link, name);
+};
+
+const createCard = (item) => {
+  const placeCard = new Card(item, "#place", handleCardClick);
+  const cardElement = placeCard.generateCard();
+  return cardElement;
+};
+
+
+// вызовы функций
+const cardsList = createCardsList();
+const userInfo = new UserInfo({});
+const popupWithImage = createPopupWithImage();
+const popupProfile = createPopupProfile();
+const popupPlace = createPopupPlace();
