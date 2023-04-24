@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto Russia</title>
 </head>
 
 <body class="body">
     <header class="header">
-        <img src="./images/logo/logo_mesto.svg" alt="Логотип места в России" class="header__logo">
+        <img src="<%=require('./images/logo/logo_mesto.svg')%>" alt="Логотип места в России" class="header__logo">
     </header>
     <main class="content">
         <section class="profile">
-            <img src="./images/photo/kusto.jpg" alt="Фотография Жака-Ива Кусто" class="profile__image">
+            <img src="<%=require('./images/photo/kusto.jpg')%>" alt="Фотография Жака-Ива Кусто" class="profile__image">
             <div class="profile__edit-profile">
 
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -48,14 +47,14 @@
                 <h3 class="popup__title">Редактировать&nbsp;профиль</h3>
                 <fieldset class="popup__input-container">
                     <label class="form__field">
-                        <input type="text" class="form__input" id="fullname" name="fullname"
-                            placeholder="Имя" required minlength="2" maxlength="40">
+                        <input type="text" class="form__input" id="fullname" name="fullname" placeholder="Имя" required
+                            minlength="2" maxlength="40">
                         <span class="form__input-error fullname-input-error form__input-error_active"></span>
                     </label>
 
                     <label class="form__field">
-                        <input type="text" class="form__input" id="about" name="about"
-                            placeholder="О себе" required minlength="2" maxlength="200">
+                        <input type="text" class="form__input" id="about" name="about" placeholder="О себе" required
+                            minlength="2" maxlength="200">
                         <span class="form__input-error about-input-error form__input-error_active"></span>
                     </label>
                 </fieldset>
@@ -71,15 +70,15 @@
                 <h3 class="popup__title">Новое&nbsp;место</h3>
                 <fieldset class="popup__input-container">
                     <label class="form__field">
-                        <input type="text" class="form__input" id="placeName"
-                            name="placeName" placeholder="Название" required minlength="2" maxlength="30">
+                        <input type="text" class="form__input" id="placeName" name="placeName" placeholder="Название"
+                            required minlength="2" maxlength="30">
                         <span class="form__input-error placename-input-error form__input-error_active"></span>
 
                     </label>
                     <label class="form__field">
-                        <input type="url" class="form__input" id="placeLink"
-                            name="placeLink" placeholder="Ссылка на картинку" required>
-                            <span class="form__input-error placelink-input-error form__input-error_active"></span>
+                        <input type="url" class="form__input" id="placeLink" name="placeLink"
+                            placeholder="Ссылка на картинку" required>
+                        <span class="form__input-error placelink-input-error form__input-error_active"></span>
                     </label>
                 </fieldset>
                 <button class="form__save-button" type="submit">Создать</button>
@@ -96,9 +95,5 @@
             </figure>
         </div>
     </div>
-
-    <script src="./scripts/utils/initialCards.js"></script>
-    <script type="module" src="./scripts/pages/index.js"></script>
 </body>
-
 </html>
