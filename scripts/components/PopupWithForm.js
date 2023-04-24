@@ -7,13 +7,13 @@
     но и добавлять обработчик сабмита формы.
     Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться.
 */
-import Popup from './Popup.js';
+import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor(popupSelector,  submitAction) {
+  constructor(popupSelector, submitAction) {
     super(popupSelector);
     this._submitAction = submitAction;
-    this._form = this._selector.querySelector('.form');
+    this._form = this._selector.querySelector(".form");
   }
 
   _getInputValues() {
@@ -27,8 +27,8 @@ class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._selector.addEventListener("submit", (ev) => {
-      ev.preventDefault();
+    this._selector.addEventListener("submit", (evt) => {
+      evt.preventDefault();
       this._submitAction(this._getInputValues());
     });
   }
@@ -36,7 +36,7 @@ class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
-}
+  }
 }
 
 export default PopupWithForm;

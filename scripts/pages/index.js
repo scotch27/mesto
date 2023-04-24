@@ -5,7 +5,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 
-const popups = document.querySelectorAll(".popup");
+// const popups = document.querySelectorAll(".popup");
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 const popupProfile = document.querySelector("#popup-profile");
 
@@ -63,14 +63,13 @@ const getCardsList = () => {
 //   // }
 // };
 
-// const handleEditProfileButtonClick = () => {
-//   myProfileForm.open();
-//   // const userInfoData = userInfo.getUserInfo();
-//   // nameInput.value = userInfoData.name;
-//   // jobInput.value = userInfoData.about;
-//   // profileFormValidator.updateStateForm();
-//   // openPopup(popupProfile);
-// };
+const handleEditProfileButtonClick = () => {
+  const userInfoData = userInfo.getUserInfo();
+  nameInput.value = userInfoData.name;
+  jobInput.value = userInfoData.about;
+  profileFormValidator.updateStateForm();
+  profilePopupForm.open();
+};
 
 // const handleFormProfileSubmit = (evt) => {
 //   evt.preventDefault();
@@ -111,7 +110,6 @@ const handlePlaceFormSubmit = (evt) => {
 
 // слушатели событий
 
-// buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
 // profileForm.addEventListener("submit", handleFormProfileSubmit);
 
 // buttonOpenPopupPlace.addEventListener("click", handleAddButtonClick);
@@ -126,19 +124,16 @@ const userInfo = new UserInfo({});
 const popupWithImage = new PopupWithImage("#popup-image", {});
 popupWithImage.setEventListeners();
 
-
-
-
 // Создаем формы
-const myProfileForm = new PopupWithForm("#popup-profile", 
-({ data }) => {
-  console.log(data);
+const profilePopupForm = new PopupWithForm("#popup-profile", (data) => {
   userInfo.setUserInfo({
-    name: data.nameInput.value,
-    about: data.jobInput.value,
+    name: data.fullname,
+    about: data.about,
   });
-
+  profilePopupForm.close();
 });
+profilePopupForm.setEventListeners();
+buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
 
 // popups.forEach((popup) => {
 //   popup.addEventListener("mousedown", (evt) => {
