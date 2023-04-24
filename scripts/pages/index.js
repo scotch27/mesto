@@ -140,7 +140,6 @@ const createCard = (item) => {
   return cardElement;
 };
 
-
 // вызовы функций
 const cardsList = createCardsList();
 const userInfo = new UserInfo({});
