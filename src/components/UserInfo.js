@@ -9,7 +9,7 @@
 */
 
 class UserInfo {
-  constructor({ name = ".profile__title", about = ".profile__subtitle" }) {
+  constructor({ name, about }) {
     this._name = document.querySelector(name);
     this._about = document.querySelector(about);
   }
