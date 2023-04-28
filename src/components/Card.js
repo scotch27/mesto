@@ -2,6 +2,7 @@ class Card {
   constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -47,6 +48,7 @@ class Card {
     );
     this._placeCardTitle = this._element.querySelector(".places__card-title");
     this._placeCardLike = this._element.querySelector(".places__card-like");
+    this._placeCardLikes = this._element.querySelector(".places__card-likes");
     this._placeCardBasket = this._element.querySelector(
       ".places__basket-button"
     );
@@ -56,7 +58,7 @@ class Card {
     this._placeCardPicture.src = this._link;
     this._placeCardPicture.alt = this._name;
     this._placeCardTitle.textContent = this._name;
-
+    this._placeCardLikes.textContent = this._likes.length;
     return this._element;
   }
 }
