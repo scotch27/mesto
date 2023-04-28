@@ -16,6 +16,17 @@ class Api {
     );
   }
 
+  setUserInfo(userInfo) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: userInfo.fullname,
+        about: userInfo.about,
+      }),
+    }).then(this._handleResponse);
+  }
+
   _handleResponse(res) {
     if (res.ok) {
       return res.json();

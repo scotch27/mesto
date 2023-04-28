@@ -64,10 +64,18 @@ const cardsList = new Section(
   Создание popupProfile 
 */
 const popupProfile = new PopupWithForm("#popup-profile", (data) => {
-  userInfo.setUserInfo({
-    name: data.fullname,
-    about: data.about,
-  });
+  api
+    .setUserInfo(data)
+    .then((result) => {
+      userInfo.setUserInfo({
+        name: result.name,
+        about: result.about,
+        avatar: result.avatar,
+      });
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
   popupProfile.close();
 });
 popupProfile.setEventListeners();
@@ -98,7 +106,7 @@ popupWithImage.setEventListeners();
 const userInfo = new UserInfo({
   name: ".profile__title",
   about: ".profile__subtitle",
-  avatar: ".profile__image"
+  avatar: ".profile__image",
 });
 
 // Валидация Формы
@@ -128,14 +136,15 @@ placeFormValidator.enableValidation();
 
 // Взаимодействие с API
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-64",
   headers: {
-    authorization: '773b24e9-0eee-4683-86ca-3d3c2a4eb53a',
-    'Content-Type': 'application/json'
-  }
+    authorization: "773b24e9-0eee-4683-86ca-3d3c2a4eb53a",
+    "Content-Type": "application/json",
+  },
 });
 
-api.getInitialCards()
+api
+  .getInitialCards()
   .then((result) => {
     cardsList.renderItems(result.reverse());
   })
@@ -143,12 +152,13 @@ api.getInitialCards()
     console.log(err); // выведем ошибку в консоль
   });
 
-  api.getUserInfo()
+api
+  .getUserInfo()
   .then((result) => {
     userInfo.setUserInfo({
       name: result.name,
       about: result.about,
-      avatar: result.avatar
+      avatar: result.avatar,
     });
   })
   .catch((err) => {
