@@ -85,14 +85,21 @@ buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
   Создание popupPlace
 */
 const popupPlace = new PopupWithForm("#popup-place", () => {
-  console.log("popuPlace action");
   const card = {
     name: placeName.value,
     link: placeLink.value,
   };
-  const placeCard = createCard(card);
-  cardsList.addItem(placeCard);
-  popupPlace.close();
+
+  api
+    .setCard(card)
+    .then((result) => {
+      const placeCard = createCard(result);
+      cardsList.addItem(placeCard);
+      popupPlace.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
 });
 popupPlace.setEventListeners();
 buttonOpenPopupPlace.addEventListener("click", handleAddButtonClick);

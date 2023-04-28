@@ -10,6 +10,14 @@ class Api {
     );
   }
 
+  setCard(data) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify(data),
+    }).then(this._handleResponse);
+  }
+
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
       this._handleResponse
