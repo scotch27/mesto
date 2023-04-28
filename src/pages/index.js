@@ -4,7 +4,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-import initialCards from "../utils/initialCards.js";
+import Api from "../components/Api.js";
 
 import "../pages/index.css";
 
@@ -52,7 +52,6 @@ const createCard = (item) => {
 */
 const cardsList = new Section(
   {
-    items: initialCards.reverse(),
     renderer: (data) => {
       const placeCard = createCard(data);
       cardsList.addItem(placeCard);
@@ -60,7 +59,6 @@ const cardsList = new Section(
   },
   ".places"
 );
-cardsList.renderItems();
 
 /*
   Создание popupProfile 
@@ -126,3 +124,19 @@ const placeFormValidator = new FormValidator(
   document.querySelector("#placeForm")
 );
 placeFormValidator.enableValidation();
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
+  headers: {
+    authorization: '773b24e9-0eee-4683-86ca-3d3c2a4eb53a',
+    'Content-Type': 'application/json'
+  }
+});
+
+api.getInitialCards()
+  .then((result) => {
+    cardsList.renderItems(result.reverse());
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });

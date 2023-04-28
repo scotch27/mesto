@@ -27,11 +27,17 @@ class Card {
   }
 
   _setEventListeners() {
-    this._placeCardLike.addEventListener("click", (evt) => this._toggleLike(evt));
+    this._placeCardLike.addEventListener("click", (evt) =>
+      this._toggleLike(evt)
+    );
 
-    this._placeCardBasket.addEventListener("click", (evt) => this._deleteCard(evt));
+    this._placeCardBasket.addEventListener("click", (evt) =>
+      this._deleteCard(evt)
+    );
 
-    this._placeCardPicture.addEventListener("click", () => this._handleImageClick());
+    this._placeCardPicture.addEventListener("click", () =>
+      this._handleImageClick()
+    );
   }
 
   generateCard() {
