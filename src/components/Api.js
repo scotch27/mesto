@@ -10,6 +10,12 @@ class Api {
     );
   }
 
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
+      this._handleResponse
+    );
+  }
+
   _handleResponse(res) {
     if (res.ok) {
       return res.json();

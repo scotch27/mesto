@@ -98,6 +98,7 @@ popupWithImage.setEventListeners();
 const userInfo = new UserInfo({
   name: ".profile__title",
   about: ".profile__subtitle",
+  avatar: ".profile__image"
 });
 
 // Валидация Формы
@@ -125,6 +126,7 @@ const placeFormValidator = new FormValidator(
 );
 placeFormValidator.enableValidation();
 
+// Взаимодействие с API
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
   headers: {
@@ -136,6 +138,18 @@ const api = new Api({
 api.getInitialCards()
   .then((result) => {
     cardsList.renderItems(result.reverse());
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
+
+  api.getUserInfo()
+  .then((result) => {
+    userInfo.setUserInfo({
+      name: result.name,
+      about: result.about,
+      avatar: result.avatar
+    });
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
