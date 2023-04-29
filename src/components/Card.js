@@ -1,10 +1,12 @@
 class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, deleteAction) {
+    this._id = data._id;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._deleteAction = deleteAction;
   }
 
   _getTemplate() {
@@ -19,10 +21,6 @@ class Card {
     evt.target.classList.toggle("places__card-like_active");
   }
 
-  _deleteCard(evt) {
-    evt.target.closest(".places__card").remove();
-  }
-
   _handleImageClick() {
     this._handleCardClick(this._name, this._link);
   }
@@ -32,13 +30,19 @@ class Card {
       this._toggleLike(evt)
     );
 
-    this._placeCardBasket.addEventListener("click", (evt) =>
-      this._deleteCard(evt)
-    );
-
+    this._placeCardBasket.addEventListener("click", () => this._deleteAction());
     this._placeCardPicture.addEventListener("click", () =>
       this._handleImageClick()
     );
+  }
+
+  getId() {
+    return this._id;
+  }
+
+  delete() {
+    this._element.remove();
+    this._element = null;
   }
 
   generateCard() {

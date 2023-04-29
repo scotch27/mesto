@@ -2,6 +2,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
@@ -40,7 +41,9 @@ const handleCardClick = (name, link) => {
 };
 
 const createCard = (item) => {
-  const placeCard = new Card(item, "#place", handleCardClick);
+  const placeCard = new Card(item, "#place", handleCardClick, () =>
+    popupPlaceDelete.open(placeCard)
+  );
   const cardElement = placeCard.generateCard();
   return cardElement;
 };
@@ -115,6 +118,22 @@ const userInfo = new UserInfo({
   about: ".profile__subtitle",
   avatar: ".profile__image",
 });
+
+/*
+  Создание popupPlaceDelete 
+*/
+const popupPlaceDelete = new PopupConfirm("#popup-place-delete", (card) => {
+  api
+    .deleteCard(card.getId())
+    .then((result) => {
+      card.delete();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
+  popupPlaceDelete.close();
+});
+popupPlaceDelete.setEventListeners();
 
 // Валидация Формы
 const validateFormOptions = {
