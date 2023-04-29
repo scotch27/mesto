@@ -14,7 +14,10 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img src="<%=require('./images/photo/kusto.jpg')%>" alt="Фотография Жака-Ива Кусто" class="profile__image">
+            <div class="profile__avatar">
+                <img src="<%=require('./images/photo/kusto.jpg')%>" alt="Фотография Жака-Ива Кусто"
+                    class="profile__image">
+            </div>
             <div class="profile__edit-profile">
 
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -30,8 +33,10 @@
                 <button class="places__basket-button" type="button" aria-label="Удалить карточку"></button>
                 <figcaption class="places__card-text">
                     <h2 class="places__card-title"></h2>
-                    <button class="places__card-like" type="button" aria-label="Поставить лайк"></button>
-                    <span class="places__card-likes">2</span>
+                    <div class="card__like-block">
+                        <button class="places__card-like" type="button" aria-label="Поставить лайк"></button>
+                        <p class="places__card-likes">0</p>
+                    </div>
                 </figcaption>
             </figure>
         </template>
@@ -40,6 +45,23 @@
     <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
+
+    <div class="popup" id="popup_avatar">
+        <div class="popup__container">
+            <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+            <form name="avatarForm" id="avatarForm" class="form" novalidate>
+                <h3 class="popup__title">Обновить&nbsp;аватар</h3>
+                <fieldset class="popup__input-container">
+                    <label class="form__field">
+                        <input type="url" class="form__input" id="avatarLink" name="avatarLink"
+                            placeholder="Ссылка на картинку" required>
+                        <span class="form__input-error avatarlink-input-error form__input-error_active"></span>
+                    </label>
+                </fieldset>
+                <button class="form__save-button" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
 
     <div class="popup" id="popup-profile">
         <div class="popup__container">
@@ -107,4 +129,5 @@
         </div>
     </div>
 </body>
+
 </html>

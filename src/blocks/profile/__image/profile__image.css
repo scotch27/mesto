@@ -5,10 +5,16 @@
     display: block;
     object-fit: cover;
     object-position: center;
+    transition: .3s linear;
 }
 
 @media screen and (max-width: 618px) {
     .profile__image {
         padding: 5px;
     }
+}
+
+.profile__image:hover {
+    cursor: pointer;
+    opacity: .2;
 }
