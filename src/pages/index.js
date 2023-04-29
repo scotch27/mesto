@@ -21,6 +21,8 @@ const placeForm = document.forms.placeForm;
 const placeName = placeForm.querySelector("#placeName");
 const placeLink = placeForm.querySelector("#placeLink");
 
+let userId;
+
 // объявление функций
 const handleEditProfileButtonClick = () => {
   const userInfoData = userInfo.getUserInfo();
@@ -41,8 +43,12 @@ const handleCardClick = (name, link) => {
 };
 
 const createCard = (item) => {
-  const placeCard = new Card(item, "#place", handleCardClick, () =>
-    popupPlaceDelete.open(placeCard)
+  const placeCard = new Card(
+    item,
+    "#place",
+    handleCardClick,
+    () => popupPlaceDelete.open(placeCard),
+    userId
   );
   const cardElement = placeCard.generateCard();
   return cardElement;
@@ -181,6 +187,7 @@ api
 api
   .getUserInfo()
   .then((result) => {
+    userId = result._id;
     userInfo.setUserInfo({
       name: result.name,
       about: result.about,

@@ -1,9 +1,11 @@
 class Card {
-  constructor(data, templateSelector, handleCardClick, deleteAction) {
+  constructor(data, templateSelector, handleCardClick, deleteAction, userId) {
     this._id = data._id;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._userId = userId;
+    this._ownerId = data.owner._id;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._deleteAction = deleteAction;
@@ -57,6 +59,7 @@ class Card {
       ".places__basket-button"
     );
 
+    if (this._ownerId !== this._userId) this._placeCardBasket.remove();
     this._setEventListeners(); // добавим обработчики
 
     this._placeCardPicture.src = this._link;
