@@ -5,66 +5,62 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(
-      this._handleResponse
-    );
+    return this._request(`/cards`, { headers: this._headers });
   }
 
   setCard(data) {
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._request(`/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then(this._handleResponse);
+    });
   }
 
   deleteCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return this._request(`/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._handleResponse);
+    });
   }
 
   likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._request(`/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._handleResponse);
+    });
   }
 
   dislikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._request(`/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._handleResponse);
+    });
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
-      this._handleResponse
-    );
+    return this._request(`/users/me`, { headers: this._headers });
   }
 
   setUserInfo(userInfo) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: userInfo.fullname,
         about: userInfo.about,
       }),
-    }).then(this._handleResponse);
+    });
   }
 
   setAvatar(avatarLink) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-        method: "PATCH",
-        headers: this._headers,
-        body: JSON.stringify({
-            avatar: avatarLink,
-        }),
-    }).then(this._handleResponse);
-}
+    return this._request(`/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatarLink,
+      }),
+    });
+  }
 
   _handleResponse(res) {
     if (res.ok) {
@@ -72,6 +68,10 @@ class Api {
     }
     // если ошибка, отклоняем промис
     return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  _request(url, options) {
+    return fetch(`${this._baseUrl}${url}`, options).then(this._handleResponse);
   }
 }
 
