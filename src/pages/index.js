@@ -23,7 +23,7 @@ const handleEditProfileButtonClick = () => {
   inputs["fullname"] = userInfoData.name;
   inputs["about"] = userInfoData.about;
   popupProfile.setInputValues(inputs);
-  profileFormValidator.updateStateForm();
+  formValidators["profileForm"].updateStateForm();
   popupProfile.open();
 };
 
@@ -32,12 +32,12 @@ const handleEditAvatarButtonClick = () => {
   let inputs = [];
   inputs["avatarLink"] = userInfoData.avatar;
   popupAvatar.setInputValues(inputs);
-  avatarFormValidator.updateStateForm();
+  formValidators["avatarForm"].updateStateForm();
   popupAvatar.open();
 };
 
 const handleAddButtonClick = () => {
-  placeFormValidator.updateStateForm();
+  formValidators["placeForm"].updateStateForm();
   popupPlace.open();
 };
 
@@ -198,26 +198,23 @@ const popupPlaceDelete = new PopupConfirm("#popup-place-delete", (card) => {
 });
 popupPlaceDelete.setEventListeners();
 
-// Валидация формы profileForm
-const profileFormValidator = new FormValidator(
-  validateFormOptions,
-  document.querySelector("#profileForm")
-);
-profileFormValidator.enableValidation();
+/*
+  Валидация форм 
+*/
+const formValidators = {};
 
-// Валидация формы avatarFormValidator
-const avatarFormValidator = new FormValidator(
-  validateFormOptions,
-  document.querySelector("#avatarForm")
-);
-avatarFormValidator.enableValidation();
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute("name"); // получаем данные из атрибута `name` у формы
+    formValidators[formName] = validator; // Объект записываем под именем формы
+    validator.enableValidation();
+  });
+};
 
-// Валидация формы placeForm
-const placeFormValidator = new FormValidator(
-  validateFormOptions,
-  document.querySelector("#placeForm")
-);
-placeFormValidator.enableValidation();
+enableValidation(validateFormOptions);
 
 // Взаимодействие с API
 const api = new Api({

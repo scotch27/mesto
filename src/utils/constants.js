@@ -4,6 +4,7 @@ export const buttonOpenPopupPlace = document.querySelector(".profile__add-button
 
 // Валидация Формы
 export const validateFormOptions = {
+    formSelector: ".form",
     submitSelector: ".form__save-button",
     inputSelector: ".form__input",
     inputSelectionSelector: ".form__field",
