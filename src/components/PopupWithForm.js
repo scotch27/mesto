@@ -16,6 +16,7 @@ class PopupWithForm extends Popup {
     this._form = this._popupElement.querySelector(".form");
     this._submitButton = this._form.querySelector(".form__save-button");
     this._submitButtonText = this._submitButton.textContent;
+    this._inputList = this._popupElement.querySelectorAll(".form__input");
   }
 
   setEventListeners() {
@@ -39,8 +40,13 @@ class PopupWithForm extends Popup {
       }
   }
 
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
   _getInputValues() {
-    this._inputList = this._popupElement.querySelectorAll(".form__input");
     this._formValues = [];
     this._inputList.forEach((input) => {
       this._formValues[input.name] = input.value;

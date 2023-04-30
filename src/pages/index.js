@@ -10,13 +10,7 @@ import Api from "../components/Api.js";
 import "../pages/index.css";
 
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
-const profileForm = document.forms.profileForm;
-const nameInput = profileForm.querySelector("#fullname");
-const jobInput = profileForm.querySelector("#about");
-
 const buttonOpenPopupAvatar = document.querySelector(".profile__image");
-const avatarForm = document.forms.avatarForm;
-const avatarLinkInput = avatarForm.querySelector("#avatarLink");
 
 const buttonOpenPopupPlace = document.querySelector(".profile__add-button");
 const placeForm = document.forms.placeForm;
@@ -26,15 +20,19 @@ const placeLink = placeForm.querySelector("#placeLink");
 // объявление функций
 const handleEditProfileButtonClick = () => {
   const userInfoData = userInfo.getUserInfo();
-  nameInput.value = userInfoData.name;
-  jobInput.value = userInfoData.about;
+  let inputs = [];
+  inputs["fullname"] = userInfoData.name;
+  inputs["about"] = userInfoData.about;
+  popupProfile.setInputValues(inputs);
   profileFormValidator.updateStateForm();
   popupProfile.open();
 };
 
 const handleEditAvatarButtonClick = () => {
   const userInfoData = userInfo.getUserInfo();
-  avatarLinkInput.value = userInfoData.avatar;
+  let inputs = [];
+  inputs["avatarLink"] = userInfoData.avatar;
+  popupAvatar.setInputValues(inputs);
   avatarFormValidator.updateStateForm();
   popupAvatar.open();
 };
@@ -113,10 +111,12 @@ const popupProfile = new PopupWithForm("#popup-profile", (data) => {
         about: result.about,
       });
       popupProfile.close();
-      popupProfile.renderLoading(false);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() =>{
+      popupProfile.renderLoading(false);
     });
 });
 popupProfile.setEventListeners();
@@ -134,10 +134,12 @@ const popupAvatar = new PopupWithForm("#popup-avatar", (data) => {
         avatar: result.avatar,
       });
       popupAvatar.close();
-      popupAvatar.renderLoading(false);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() =>{
+      popupAvatar.renderLoading(false);
     });
 });
 popupAvatar.setEventListeners();
@@ -155,10 +157,12 @@ const popupPlace = new PopupWithForm("#popup-place", () => {
       const placeCard = createCard(result);
       cardsList.addItem(placeCard);
       popupPlace.close();
-      popupPlace.renderLoading(false);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() =>{
+      popupPlace.renderLoading(false);
     });
 });
 popupPlace.setEventListeners();
@@ -186,10 +190,12 @@ const popupPlaceDelete = new PopupConfirm("#popup-place-delete", (card) => {
     .then((result) => {
       card.delete();
       popupPlaceDelete.close();
-      popupPlaceDelete.renderLoading(false);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() =>{
+      popupPlaceDelete.renderLoading(false);
     });
 });
 popupPlaceDelete.setEventListeners();
