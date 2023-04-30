@@ -1,3 +1,13 @@
+import {
+  buttonOpenPopupProfile,
+  buttonOpenPopupAvatar,
+  buttonOpenPopupPlace,
+  placeForm,
+  placeName,
+  placeLink,
+  validateFormOptions,
+} from "../utils/constants.js";
+
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -8,14 +18,6 @@ import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 
 import "../pages/index.css";
-
-const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
-const buttonOpenPopupAvatar = document.querySelector(".profile__image");
-
-const buttonOpenPopupPlace = document.querySelector(".profile__add-button");
-const placeForm = document.forms.placeForm;
-const placeName = placeForm.querySelector("#placeName");
-const placeLink = placeForm.querySelector("#placeLink");
 
 // объявление функций
 const handleEditProfileButtonClick = () => {
@@ -115,7 +117,7 @@ const popupProfile = new PopupWithForm("#popup-profile", (data) => {
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    .finally(() =>{
+    .finally(() => {
       popupProfile.renderLoading(false);
     });
 });
@@ -138,7 +140,7 @@ const popupAvatar = new PopupWithForm("#popup-avatar", (data) => {
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    .finally(() =>{
+    .finally(() => {
       popupAvatar.renderLoading(false);
     });
 });
@@ -161,7 +163,7 @@ const popupPlace = new PopupWithForm("#popup-place", () => {
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    .finally(() =>{
+    .finally(() => {
       popupPlace.renderLoading(false);
     });
 });
@@ -194,22 +196,11 @@ const popupPlaceDelete = new PopupConfirm("#popup-place-delete", (card) => {
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    .finally(() =>{
+    .finally(() => {
       popupPlaceDelete.renderLoading(false);
     });
 });
 popupPlaceDelete.setEventListeners();
-
-// Валидация Формы
-const validateFormOptions = {
-  submitSelector: ".form__save-button",
-  inputSelector: ".form__input",
-  inputSelectionSelector: ".form__field",
-  inputErrorSelector: ".form__input-error",
-  inputErrorClass: "form__input-error_active",
-  inputTypeErrorClass: "form__input_type_error",
-  disabledButtonClass: "form__save-button_inactive",
-};
 
 // Валидация формы profileForm
 const profileFormValidator = new FormValidator(
