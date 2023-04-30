@@ -42,12 +42,36 @@ const handleCardClick = (name, link) => {
   popupWithImage.open(link, name);
 };
 
+const likeCard = (card) => {
+  api
+    .likeCard(card.getId())
+    .then((result) => {
+      card.setLikes(result.likes);
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
+};
+
+const dislikeCard = (card) =>{
+  api
+    .dislikeCard(card.getId())
+    .then((result) => {
+      card.setLikes(result.likes);
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
+};
+
 const createCard = (item) => {
   const placeCard = new Card(
     item,
     "#place",
     handleCardClick,
     () => popupPlaceDelete.open(placeCard),
+    () => likeCard(placeCard),
+    () => dislikeCard(placeCard),
     userId
   );
   const cardElement = placeCard.generateCard();
