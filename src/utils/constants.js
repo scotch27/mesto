@@ -1,10 +1,6 @@
 export const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 export const buttonOpenPopupAvatar = document.querySelector(".profile__image");
-
 export const buttonOpenPopupPlace = document.querySelector(".profile__add-button");
-export const placeForm = document.forms.placeForm;
-export const placeName = placeForm.querySelector("#placeName");
-export const placeLink = placeForm.querySelector("#placeLink");
 
 // Валидация Формы
 export const validateFormOptions = {

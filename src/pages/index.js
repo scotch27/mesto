@@ -2,9 +2,6 @@ import {
   buttonOpenPopupProfile,
   buttonOpenPopupAvatar,
   buttonOpenPopupPlace,
-  placeForm,
-  placeName,
-  placeLink,
   validateFormOptions,
 } from "../utils/constants.js";
 
@@ -40,7 +37,6 @@ const handleEditAvatarButtonClick = () => {
 };
 
 const handleAddButtonClick = () => {
-  placeForm.reset();
   placeFormValidator.updateStateForm();
   popupPlace.open();
 };
@@ -79,7 +75,7 @@ const createCard = (item) => {
     () => popupPlaceDelete.open(placeCard),
     () => likeCard(placeCard),
     () => dislikeCard(placeCard),
-    userInfo.getUserInfo().id
+    userInfo.getUserInfo()._id
   );
   const cardElement = placeCard.generateCard();
   return cardElement;
@@ -150,9 +146,9 @@ buttonOpenPopupAvatar.addEventListener("click", handleEditAvatarButtonClick);
 /*
   Создание popupPlace
 */
-const popupPlace = new PopupWithForm("#popup-place", () => {
+const popupPlace = new PopupWithForm("#popup-place", (data) => {
   popupPlace.renderLoading(true, "Сохранение...");
-  const card = { name: placeName.value, link: placeLink.value };
+  const card = { name: data.placeName, link: data.placeLink };
   api
     .setCard(card)
     .then((result) => {
@@ -235,7 +231,7 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo({
-      id: userData._id,
+      _id: userData._id,
       name: userData.name,
       about: userData.about,
       avatar: userData.avatar,
