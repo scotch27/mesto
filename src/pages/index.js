@@ -235,24 +235,16 @@ const api = new Api({
   },
 });
 
-api
-  .getUserInfo()
-  .then((result) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
     userInfo.setUserInfo({
-      id: result._id,
-      name: result.name,
-      about: result.about,
-      avatar: result.avatar,
+      id: userData._id,
+      name: userData.name,
+      about: userData.about,
+      avatar: userData.avatar,
     });
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
 
-api
-  .getInitialCards()
-  .then((result) => {
-    cardsList.renderItems(result.reverse());
+    cardsList.renderItems(cards.reverse());
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль

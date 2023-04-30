@@ -10,9 +10,8 @@ class PopupConfirm extends Popup {
   }
 
   open(card) {
+    super.open();
     this._card = card;
-    this._popupElement.classList.add("popup_opened");
-    document.addEventListener("keydown", this._handleEscClose);
   }
 
   setEventListeners() {
