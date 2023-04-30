@@ -53,7 +53,7 @@ const likeCard = (card) => {
     });
 };
 
-const dislikeCard = (card) =>{
+const dislikeCard = (card) => {
   api
     .dislikeCard(card.getId())
     .then((result) => {
@@ -97,6 +97,7 @@ const cardsList = new Section(
   Создание popupProfile 
 */
 const popupProfile = new PopupWithForm("#popup-profile", (data) => {
+  popupProfile.renderLoading(true, "Сохранение...");
   api
     .setUserInfo(data)
     .then((result) => {
@@ -105,11 +106,12 @@ const popupProfile = new PopupWithForm("#popup-profile", (data) => {
         about: result.about,
         avatar: result.avatar,
       });
+      popupProfile.close();
+      popupProfile.renderLoading(false);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     });
-  popupProfile.close();
 });
 popupProfile.setEventListeners();
 buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
@@ -118,17 +120,15 @@ buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
   Создание popupPlace
 */
 const popupPlace = new PopupWithForm("#popup-place", () => {
-  const card = {
-    name: placeName.value,
-    link: placeLink.value,
-  };
-
+  popupPlace.renderLoading(true, "Сохранение...");
+  const card = { name: placeName.value, link: placeLink.value };
   api
     .setCard(card)
     .then((result) => {
       const placeCard = createCard(result);
       cardsList.addItem(placeCard);
       popupPlace.close();
+      popupPlace.renderLoading(false);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
@@ -153,15 +153,17 @@ const userInfo = new UserInfo({
   Создание popupPlaceDelete 
 */
 const popupPlaceDelete = new PopupConfirm("#popup-place-delete", (card) => {
+  popupPlaceDelete.renderLoading(true, "Удаление...");
   api
     .deleteCard(card.getId())
     .then((result) => {
       card.delete();
+      popupPlaceDelete.close();
+      popupPlaceDelete.renderLoading(false);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     });
-  popupPlaceDelete.close();
 });
 popupPlaceDelete.setEventListeners();
 
