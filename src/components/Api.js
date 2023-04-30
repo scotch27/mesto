@@ -56,6 +56,16 @@ class Api {
     }).then(this._handleResponse);
   }
 
+  setAvatar(avatarLink) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+        method: "PATCH",
+        headers: this._headers,
+        body: JSON.stringify({
+            avatar: avatarLink,
+        }),
+    }).then(this._handleResponse);
+}
+
   _handleResponse(res) {
     if (res.ok) {
       return res.json();

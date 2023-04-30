@@ -17,18 +17,21 @@ class UserInfo {
 
   getUserInfo() {
     return {
+      id: this._id,
       name: this._name.textContent,
       about: this._about.textContent,
       avatar: this._avatar.src,
     };
   }
 
-  setUserInfo({ name, about, avatar }) {
-    this._name.textContent = name;
-    this._about.textContent = about;
-
+  setUserInfo({ id, name, about, avatar }) {
+    if (id) this._id = id;
+    if (name) {
+      this._name.textContent = name;
+      this._avatar.alt = name;
+    }
+    if (about) this._about.textContent = about;
     if (avatar) this._avatar.src = avatar;
-    this._avatar.alt = name;
   }
 }
 
