@@ -104,10 +104,7 @@ const popupProfile = new PopupWithForm("#popup-profile", (data) => {
   api
     .setUserInfo(data)
     .then((result) => {
-      userInfo.setUserInfo({
-        name: result.name,
-        about: result.about,
-      });
+      userInfo.setUserInfo(result);
       popupProfile.close();
     })
     .catch((err) => {
@@ -128,9 +125,7 @@ const popupAvatar = new PopupWithForm("#popup-avatar", (data) => {
   api
     .setAvatar(data.avatarLink)
     .then((result) => {
-      userInfo.setUserInfo({
-        avatar: result.avatar,
-      });
+      userInfo.setUserInfo(result);
       popupAvatar.close();
     })
     .catch((err) => {
@@ -227,13 +222,7 @@ const api = new Api({
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
-    userInfo.setUserInfo({
-      _id: userData._id,
-      name: userData.name,
-      about: userData.about,
-      avatar: userData.avatar,
-    });
-
+    userInfo.setUserInfo(userData);
     cardsList.renderItems(cards.reverse());
   })
   .catch((err) => {
