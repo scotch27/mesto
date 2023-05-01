@@ -81,6 +81,16 @@ const createCard = (item) => {
   return cardElement;
 };
 
+// Универсальная функция, которая принимает функцию запроса,
+//экземпляр попапа и текст во время загрузки (опционально)
+function handleSubmit(request, popupInstance, loadingText = "Сохранение...") {
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => popupInstance.close())
+    .catch((err) => console.error(`Ошибка: ${err}`)) // выведем ошибку в консоль
+    .finally(() => popupInstance.renderLoading(false));
+}
+
 // Вызовы функций/создание объектов
 /*
   Инициализация cardsList с передачей в конструктор массива карточек initialCards 
@@ -100,19 +110,12 @@ const cardsList = new Section(
   Создание popupProfile 
 */
 const popupProfile = new PopupWithForm("#popup-profile", (data) => {
-  popupProfile.renderLoading(true, "Сохранение...");
-  api
-    .setUserInfo(data)
-    .then((result) => {
-      userInfo.setUserInfo(result);
-      popupProfile.close();
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
-    .finally(() => {
-      popupProfile.renderLoading(false);
-    });
+  function makeRequest() {
+    return api
+      .setUserInfo(data)
+      .then((userData) => userInfo.setUserInfo(userData));
+  }
+  handleSubmit(makeRequest, popupProfile);
 });
 popupProfile.setEventListeners();
 buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
@@ -121,19 +124,12 @@ buttonOpenPopupProfile.addEventListener("click", handleEditProfileButtonClick);
   Создание popupAvatar
 */
 const popupAvatar = new PopupWithForm("#popup-avatar", (data) => {
-  popupAvatar.renderLoading(true, "Сохранение...");
-  api
-    .setAvatar(data.avatarLink)
-    .then((result) => {
+  function makeRequest() {
+    return api.setAvatar(data.avatarLink).then((result) => {
       userInfo.setUserInfo(result);
-      popupAvatar.close();
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
-    .finally(() => {
-      popupAvatar.renderLoading(false);
     });
+  }
+  handleSubmit(makeRequest, popupAvatar);
 });
 popupAvatar.setEventListeners();
 buttonOpenPopupAvatar.addEventListener("click", handleEditAvatarButtonClick);
@@ -142,21 +138,14 @@ buttonOpenPopupAvatar.addEventListener("click", handleEditAvatarButtonClick);
   Создание popupPlace
 */
 const popupPlace = new PopupWithForm("#popup-place", (data) => {
-  popupPlace.renderLoading(true, "Сохранение...");
   const card = { name: data.placeName, link: data.placeLink };
-  api
-    .setCard(card)
-    .then((result) => {
+  function makeRequest() {
+    return api.setCard(card).then((result) => {
       const placeCard = createCard(result);
       cardsList.addItem(placeCard);
-      popupPlace.close();
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
-    .finally(() => {
-      popupPlace.renderLoading(false);
     });
+  }
+  handleSubmit(makeRequest, popupPlace);
 });
 popupPlace.setEventListeners();
 buttonOpenPopupPlace.addEventListener("click", handleAddButtonClick);
@@ -177,20 +166,12 @@ const userInfo = new UserInfo({
   Создание popupPlaceDelete 
 */
 const popupPlaceDelete = new PopupConfirm("#popup-place-delete", (card) => {
-  popupPlaceDelete.renderLoading(true, "Удаление...");
-  api
-    .deleteCard(card.getId())
-    .then((result) => {
-      card.delete();
-      popupPlaceDelete.close();
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
-    .finally(() => {
-      popupPlaceDelete.renderLoading(false);
-    });
+  function makeRequest() {
+    return api.deleteCard(card.getId()).then((result) => card.delete());
+  }
+  handleSubmit(makeRequest, popupPlaceDelete, "Удаление...");
 });
+
 popupPlaceDelete.setEventListeners();
 
 /*
