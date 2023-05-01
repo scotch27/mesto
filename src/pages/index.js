@@ -19,7 +19,7 @@ import "../pages/index.css";
 // объявление функций
 const handleEditProfileButtonClick = () => {
   const userInfoData = userInfo.getUserInfo();
-  let inputs = [];
+  const inputs = [];
   inputs["fullname"] = userInfoData.name;
   inputs["about"] = userInfoData.about;
   popupProfile.setInputValues(inputs);
@@ -29,7 +29,7 @@ const handleEditProfileButtonClick = () => {
 
 const handleEditAvatarButtonClick = () => {
   const userInfoData = userInfo.getUserInfo();
-  let inputs = [];
+  const inputs = [];
   inputs["avatarLink"] = userInfoData.avatar;
   popupAvatar.setInputValues(inputs);
   formValidators["avatarForm"].updateStateForm();
